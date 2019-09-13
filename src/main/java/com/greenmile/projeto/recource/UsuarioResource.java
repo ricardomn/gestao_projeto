@@ -36,25 +36,16 @@ public class UsuarioResource {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> buscar(@PathVariable Long id){
-		Usuario usuario = usuarios.getOne(id);
-		
-		if(usuario == null) {
-			return ResponseEntity.notFound().build();
-		}
-		
-		return ResponseEntity.ok(usuario);
+		return usuarios.findById(id).map(record -> ResponseEntity.ok().body(record))
+		           .orElse(ResponseEntity.notFound().build());
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> remover(@PathVariable Long id){
-		Usuario usuario = usuarios.getOne(id);
-		
-		if(usuario == null) {
-			return ResponseEntity.notFound().build();
-		}
-		
-		usuarios.delete(usuario);
-		
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<?> remover(@PathVariable Long id){
+		return usuarios.findById(id)
+		           .map(record -> {
+		        	   usuarios.deleteById(id);
+		               return ResponseEntity.ok().build();
+		           }).orElse(ResponseEntity.notFound().build());
 	}
 }
