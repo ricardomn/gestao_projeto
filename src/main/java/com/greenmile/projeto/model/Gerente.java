@@ -9,8 +9,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Usuario {
-
+public class Gerente {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -90,7 +90,7 @@ public class Usuario {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		Gerente other = (Gerente) obj;
 		if (ativo == null) {
 			if (other.ativo != null)
 				return false;
@@ -118,5 +118,5 @@ public class Usuario {
 			return false;
 		return true;
 	}
-
+	
 }
