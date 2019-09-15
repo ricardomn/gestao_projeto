@@ -1,17 +1,22 @@
 package com.greenmile.projeto.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Projeto {
@@ -27,16 +32,30 @@ public class Projeto {
 	@JoinColumn(name="gerente_id")
 	private Gerente gerente;
 	
+	@OneToMany(mappedBy = "projeto", targetEntity = UsuariosDoProjeto.class, orphanRemoval = true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@JsonManagedReference
+	private List<UsuariosDoProjeto> usuariosDosProjetos;
+	
 	@Temporal(TemporalType.DATE)
 	private Date dataInicio;
 	@Temporal(TemporalType.DATE)
 	private Date dataFim;
 	
 	private String timeSkill;
-	private String pmsSkill;
+	private String pmSkill;
 	private String nomeTime;
 	
 	private Boolean ativo = true;
+
+
+
+	public List<UsuariosDoProjeto> getUsuariosDosProjetos() {
+		return usuariosDosProjetos;
+	}
+
+	public void setUsuariosDosProjetos(List<UsuariosDoProjeto> usuariosDosProjetos) {
+		this.usuariosDosProjetos = usuariosDosProjetos;
+	}
 
 	public Long getId() {
 		return id;
@@ -86,12 +105,12 @@ public class Projeto {
 		this.timeSkill = timeSkill;
 	}
 
-	public String getPmsSkill() {
-		return pmsSkill;
+	public String getPmSkill() {
+		return pmSkill;
 	}
 
-	public void setPmsSkill(String pmsSkill) {
-		this.pmsSkill = pmsSkill;
+	public void setPmSkill(String pmsSkill) {
+		this.pmSkill = pmsSkill;
 	}
 
 	public String getNomeTime() {
@@ -121,7 +140,7 @@ public class Projeto {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nomeProjeto == null) ? 0 : nomeProjeto.hashCode());
 		result = prime * result + ((nomeTime == null) ? 0 : nomeTime.hashCode());
-		result = prime * result + ((pmsSkill == null) ? 0 : pmsSkill.hashCode());
+		result = prime * result + ((pmSkill == null) ? 0 : pmSkill.hashCode());
 		result = prime * result + ((timeSkill == null) ? 0 : timeSkill.hashCode());
 		return result;
 	}
@@ -170,10 +189,10 @@ public class Projeto {
 				return false;
 		} else if (!nomeTime.equals(other.nomeTime))
 			return false;
-		if (pmsSkill == null) {
-			if (other.pmsSkill != null)
+		if (pmSkill == null) {
+			if (other.pmSkill != null)
 				return false;
-		} else if (!pmsSkill.equals(other.pmsSkill))
+		} else if (!pmSkill.equals(other.pmSkill))
 			return false;
 		if (timeSkill == null) {
 			if (other.timeSkill != null)
