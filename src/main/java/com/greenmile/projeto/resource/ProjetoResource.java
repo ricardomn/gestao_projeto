@@ -32,7 +32,7 @@ public class ProjetoResource {
 
 	@GetMapping
 	public List<Projeto> listar(){
-		return projetos.findAll();
+		return projetos.findByAtivoTrue();
 	}
 	
 	@PutMapping("/{id}")
@@ -45,12 +45,12 @@ public class ProjetoResource {
 		
 	}
 	
-	@PutMapping("/arquivar/{/id}")
-	public ResponseEntity<Projeto> arquivar(@PathVariable Long id){
+	@PutMapping("/arquivar/{id}")
+	public ResponseEntity<Object> arquivar(@PathVariable Long id){
 		return projetos.findById(id).map(record -> {
 			record.setAtivo(false);
 			projetos.save(record);
-			return ResponseEntity.ok().body(record);
+			return ResponseEntity.noContent().build();
 		}).orElse(ResponseEntity.notFound().build());
 	}
 	
