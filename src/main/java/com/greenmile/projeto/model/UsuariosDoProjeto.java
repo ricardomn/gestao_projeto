@@ -7,15 +7,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class AssociacaoProjeto {
+@Table(name="associacao_projeto")
+public class UsuariosDoProjeto {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
 	@ManyToOne(optional=false, cascade=CascadeType.MERGE)
 	@JoinColumn(name="projeto_id")
+	@JsonBackReference
 	private Projeto projeto;
 
 	@ManyToOne(optional=false, cascade=CascadeType.MERGE)
@@ -88,7 +94,7 @@ public class AssociacaoProjeto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AssociacaoProjeto other = (AssociacaoProjeto) obj;
+		UsuariosDoProjeto other = (UsuariosDoProjeto) obj;
 		if (ativo == null) {
 			if (other.ativo != null)
 				return false;
