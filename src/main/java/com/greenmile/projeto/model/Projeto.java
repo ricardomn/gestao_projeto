@@ -34,7 +34,7 @@ public class Projeto {
 	
 	@OneToMany(mappedBy = "projeto", targetEntity = UsuariosDoProjeto.class, orphanRemoval = true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JsonManagedReference
-	private List<UsuariosDoProjeto> usuariosDosProjetos;
+	private List<UsuariosDoProjeto> usuariosDoProjeto;
 	
 	@Temporal(TemporalType.DATE)
 	private Date dataInicio;
@@ -47,14 +47,12 @@ public class Projeto {
 	
 	private Boolean ativo = true;
 
-
-
-	public List<UsuariosDoProjeto> getUsuariosDosProjetos() {
-		return usuariosDosProjetos;
+	public List<UsuariosDoProjeto> getUsuariosDoProjeto() {
+		return usuariosDoProjeto;
 	}
 
-	public void setUsuariosDosProjetos(List<UsuariosDoProjeto> usuariosDosProjetos) {
-		this.usuariosDosProjetos = usuariosDosProjetos;
+	public void setUsuariosDosProjetos(List<UsuariosDoProjeto> usuariosDoProjeto) {
+		this.usuariosDoProjeto = usuariosDoProjeto;
 	}
 
 	public Long getId() {
