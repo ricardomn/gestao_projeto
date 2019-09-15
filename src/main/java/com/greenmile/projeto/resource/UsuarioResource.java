@@ -1,4 +1,4 @@
-package com.greenmile.projeto.recource;
+package com.greenmile.projeto.resource;
 
 import java.util.List;
 
