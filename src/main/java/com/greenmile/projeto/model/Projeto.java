@@ -28,7 +28,7 @@ public class Projeto {
 	@Column(length=120)
 	private String nomeProjeto;
 	
-	@ManyToOne(optional=false, cascade=CascadeType.MERGE)
+	@ManyToOne(optional=false, cascade=CascadeType.ALL)
 	@JoinColumn(name="gerente_id")
 	private Gerente gerente;
 	

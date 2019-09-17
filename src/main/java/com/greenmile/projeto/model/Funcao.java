@@ -12,8 +12,8 @@ public class Funcao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(length=120)
 	
+	@Column(length=120)
 	private String nome;
 	
 	private Boolean ativo = true;
